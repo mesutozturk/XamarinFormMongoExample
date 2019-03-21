@@ -21,7 +21,7 @@ namespace XamarinFormMongo.Views
             MasterBehavior = MasterBehavior.Popover;
 
             MenuPages.Add((int)MenuItemType.Browse, (NavigationPage)Detail);
-            MongoTest();
+            //MongoTest();
         }
 
         private void MongoTest()

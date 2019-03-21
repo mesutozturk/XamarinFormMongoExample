@@ -24,10 +24,10 @@ namespace XamarinFormMongo.Views
         {
             InitializeComponent();
 
-            var item = new Item
+            var item = new Gorev()
             {
-                Text = "Item 1",
-                Description = "This is an item description."
+                GorevAdi = "Item 1",
+                Aciklama = "This is an item description."
             };
 
             viewModel = new ItemDetailViewModel(item);
