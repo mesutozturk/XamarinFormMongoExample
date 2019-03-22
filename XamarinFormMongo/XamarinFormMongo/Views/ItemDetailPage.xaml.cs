@@ -12,12 +12,31 @@ namespace XamarinFormMongo.Views
     public partial class ItemDetailPage : ContentPage
     {
         ItemDetailViewModel viewModel;
-
+        private int sayac = 0;
         public ItemDetailPage(ItemDetailViewModel viewModel)
         {
             InitializeComponent();
-
+            swOnay.IsToggled = viewModel.Item.YapilmaTarihi.HasValue;
             BindingContext = this.viewModel = viewModel;
+            swOnay.Toggled += async (sender, e) =>
+             {
+                 if (e.Value)
+                 {
+                     this.viewModel.Item.YapilmaTarihi = DateTime.Now;
+                 }
+                 else
+                 {
+                     this.viewModel.Item.YapilmaTarihi = null;
+                 }
+                 MessagingCenter.Send(this, "UpdateItem", this.viewModel.Item);
+                 await DisplayAlert("Görev Güncelleme", "Görev güncellendi", "Ok");
+                 await Navigation.PopAsync(true);
+             };
+
+            btnSay.Clicked += (sender, e) =>
+            {
+                btnSay.Text = $"{++sayac}";
+            };
         }
 
         public ItemDetailPage()

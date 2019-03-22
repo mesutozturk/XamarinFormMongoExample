@@ -8,5 +8,13 @@
         <Label Text="{Binding Item.GorevAdi}" FontSize="Small"/>
         <Label Text="Description:" FontSize="Medium" />
         <Label Text="{Binding Item.Aciklama}" FontSize="Small"/>
+        <Label Text="{Binding Item.KalanGunSayisi}" FontSize="25" TextColor="Tomato"/>
+
+        <StackLayout
+            Orientation="Horizontal" Padding="0">
+            <Label Text="Tamamlandı Mı?" FontSize="25" TextColor="RoyalBlue"/>
+            <Switch x:Name="swOnay"  HorizontalOptions="Start"/>
+        </StackLayout>
+        <Button x:Name="btnSay" Text="0"/>
     </StackLayout>
 </ContentPage>

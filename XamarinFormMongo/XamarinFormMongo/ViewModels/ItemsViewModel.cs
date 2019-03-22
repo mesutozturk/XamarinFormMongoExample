@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -26,6 +27,13 @@ namespace XamarinFormMongo.ViewModels
                 var newItem = item as Gorev;
                 Items.Add(newItem);
                 await DataStore.AddItemAsync(newItem);
+            });
+            MessagingCenter.Subscribe<ItemDetailPage, Gorev>(this, "UpdateItem", async (obj, item) =>
+            {
+                var newItem = item as Gorev;
+                var update = Items.FirstOrDefault(x => x.Id == newItem.Id);
+                update.YapilmaTarihi = item.YapilmaTarihi;
+                await DataStore.UpdateItemAsync(newItem);
             });
         }
 

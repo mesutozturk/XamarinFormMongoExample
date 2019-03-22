@@ -31,7 +31,6 @@ namespace XamarinFormMongo.Services
         {
             var db = MongoService.Db;
             var collection= db.GetCollection<Gorev>("gorevler");
-
             var wm = new WriteModel<Gorev>[1];
             wm[0] = new ReplaceOneModel<Gorev>(new BsonDocument("_id", item.Id), item) { IsUpsert = true };
             collection.BulkWrite(wm);
@@ -41,9 +40,12 @@ namespace XamarinFormMongo.Services
 
         public async Task<bool> UpdateItemAsync(Gorev item)
         {
-            var oldItem = items.FirstOrDefault(arg => arg.Id == item.Id);
-            items.Remove(oldItem);
-            items.Add(item);
+            var db = MongoService.Db;
+            var collection = db.GetCollection<Gorev>("gorevler");
+            var wm = new WriteModel<Gorev>[1];
+            wm[0] = new ReplaceOneModel<Gorev>(new BsonDocument("_id", item.Id), item) { IsUpsert = true };
+            collection.BulkWrite(wm);
+            //GetData();
 
             return await Task.FromResult(true);
         }
