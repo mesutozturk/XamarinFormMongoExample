@@ -52,8 +52,9 @@ namespace XamarinFormMongo.Services
 
         public async Task<bool> DeleteItemAsync(Guid id)
         {
-            var oldItem = items.FirstOrDefault(arg => arg.Id == id);
-            items.Remove(oldItem);
+            var db = MongoService.Db;
+            var collection = db.GetCollection<Gorev>("gorevler");
+            collection.DeleteOne(x => x.Id == id);
 
             return await Task.FromResult(true);
         }

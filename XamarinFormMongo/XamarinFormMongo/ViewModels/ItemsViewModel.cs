@@ -35,6 +35,10 @@ namespace XamarinFormMongo.ViewModels
                 update.YapilmaTarihi = item.YapilmaTarihi;
                 await DataStore.UpdateItemAsync(newItem);
             });
+            MessagingCenter.Subscribe<ItemDetailPage, Gorev>(this, "DeleteItem", async (obj, item) =>
+            {
+                await DataStore.DeleteItemAsync(item.Id);
+            });
         }
 
         async Task ExecuteLoadItemsCommand()

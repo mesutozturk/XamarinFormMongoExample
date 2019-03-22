@@ -33,9 +33,25 @@ namespace XamarinFormMongo.Views
                  await Navigation.PopAsync(true);
              };
 
-            btnSay.Clicked += (sender, e) =>
+            btnSil.Clicked += async (sender, e) =>
             {
-                btnSay.Text = $"{++sayac}";
+                var cevap = await DisplayAlert("Görev silme",
+                    $"{this.viewModel.Item.GorevAdi} isimli görevi silmek istiyor musunuz?", "Evet", "Vazgeç");
+                if (cevap)
+                {
+                    MessagingCenter.Send(this, "DeleteItem", this.viewModel.Item);
+                    await DisplayAlert("Görev Silme", "Görev Silindi", "Ok");
+                    await Navigation.PopAsync(true);
+                }
+                else
+                    await DisplayAlert("Görev Silme", "Görev silinmedi", "Ok");
+            };
+            btnGuncelle.Clicked +=async (sender, e) =>
+            {
+
+                MessagingCenter.Send(this, "UpdateItem", this.viewModel.Item);
+                await DisplayAlert("Görev Güncelleme", "Görev güncellendi", "Ok");
+                await Navigation.PopAsync(true);
             };
         }
 
